@@ -14,4 +14,4 @@ args = parser.parse_args()
 url = "smb://pushprint.uio.no"
 PATH = url + args.printerName
 
-subprocess.check_call(["lpadmin","-p", args.printerName, "-L", args.location, "-v", PATH, "-P", args.ppd_path, "-L", args.location])
+subprocess.check_call(["lpadmin","-p", args.printerName, "-L", args.location, "-v", PATH, "-P", args.ppd_path])
