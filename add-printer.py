@@ -1,17 +1,19 @@
 #!/usr/bin/env python
-
 import argparse
 import subprocess
 
-parser = argparse.ArgumentParser()
+_LPADMIN = '/usr/sbin/lpadmin'
 
-parser.add_argument('-p','--printerName',default= "test-printer", help ="Name of a printer")
-parser.add_argument('-P','--ppd_path',default = "/Library/Printers/PPDs/Contents/Resources/HP LaserJet 600 M601 M602 M603.gz", help="Path to PPD files")
-parser.add_argument('-L','--location',default="usit_1340",help ="Printer location")
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
 
-args = parser.parse_args()
+    parser.add_argument('--name', required=True, help="Name of a printer")
+    parser.add_argument('--ppd', reauired=True, help="Path to PPD file")
+    parser.add_argument('--location', default="No specific location", help="Printer location")
 
-url = "smb://pushprint.uio.no/"
-PATH = url + args.printerName
+    args = parser.parse_args()
 
-subprocess.check_call(["lpadmin","-p", args.printerName, "-L", args.location, "-v", PATH, "-P", args.ppd_path])
+    base_url = "smb://pushprint.uio.no/"
+    url = base_url + args.name
+
+    subprocess.check_call([_LPADMIN, "-p", args.name, "-L", args.location, "-v", url, "-P", args.ppd])
