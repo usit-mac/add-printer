@@ -1,0 +1,3 @@
+#!/usr/bin/env python
+with open("/var/log/postinstall_test.log", "w") as ofile:
+    ofile.write("Jeg blir kalt!\n")
