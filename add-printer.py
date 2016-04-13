@@ -8,7 +8,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--name', required=True, help="Name of a printer")
-    parser.add_argument('--ppd', reauired=True, help="Path to PPD file")
+    parser.add_argument('--ppd', required=True, help="Path to PPD file")
     parser.add_argument('--location', default="No specific location", help="Printer location")
 
     args = parser.parse_args()
