@@ -3,7 +3,7 @@ include /usr/local/share/luggage/luggage.make
 TITLE=setup_add_printer
 VERSION=1.0
 REVERSE_DOMAIN=no.uio.usit
-PPD=ppd_test.gz
+PPD=__PPDFILE__
 THEDIR=${WORK_D}/Library/Printers/PPDs/Contents/Resources
 
 PAYLOAD=\
