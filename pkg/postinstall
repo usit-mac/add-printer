@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 
 import subprocess
+import os.path as op
 
 _LPADMIN = '/usr/sbin/lpadmin'
 
 NAME='test_printer'
 LOCATION='LAB-1'
-PPD=HP\ LaserJet\ 600\ M601\ M602\ M603.gz
+PPD='ppd_test.gz'
+PPDIR='/Library/Printers/PPDs/Contents/Resources/'
+PPD_FULL=PPDIR + PPD
 
 if __name__ == '__main__':
 
     base_url = "smb://pushprint.uio.no/"
     url = base_url + NAME
 
-    subprocess.check_call([_LPADMIN, "-p", NAME, "-L", LOCATION, "-v", url, "-P", PPD])
+    subprocess.check_call([_LPADMIN, "-p", NAME, "-L", LOCATION, "-v", url, "-P", PPD_FULL])
