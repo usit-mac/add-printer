@@ -5,9 +5,9 @@ import os.path as op
 
 _LPADMIN = '/usr/sbin/lpadmin'
 
-NAME='test_printer'
-LOCATION='LAB-1'
-PPD='ppd_test.gz'
+NAME='__NAME__'
+LOCATION='__LOCATION__'
+PPD='__PPD__'
 PPDIR='/Library/Printers/PPDs/Contents/Resources/'
 PPD_FULL=PPDIR + PPD
 
