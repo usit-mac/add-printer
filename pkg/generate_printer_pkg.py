@@ -3,6 +3,7 @@ import sys
 import argparse
 import os
 from os.path import join
+import shutil
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -16,6 +17,8 @@ if __name__ == '__main__':
    
     if not os.path.exists(args.output_directory):
 	os.makedirs(args.output_directory)
+	
+    shutil.copy(args.ppd,args.output_directory)
 	
     with open('Makefile', 'r') as infile:
 	 with open(os.path.join(args.output_directory,'Makefile'), 'w') as ofile:
