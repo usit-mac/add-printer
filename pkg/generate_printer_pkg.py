@@ -21,13 +21,15 @@ if __name__ == '__main__':
     if not os.path.exists(args.output_directory):
 	os.makedirs(args.output_directory)
 	
-    shutil.copy(args.ppd,args.output_directory)
+    # If in same directory, don't copy
+    if not os.path.join('.',args.ppd) == os.path.join(args.output_directory, args.ppd):
+        shutil.copy(args.ppd,args.output_directory)
 	
-    with open('Makefile', 'r') as infile:
+    with open('Makefile-template', 'r') as infile:
 	 with open(os.path.join(args.output_directory,'Makefile'), 'w') as ofile:
 	     ofile.write(infile.read().replace('__PPDFILE__', args.ppd))
 
-    with open('postinstall', 'r') as infile:
+    with open('postinstall-template', 'r') as infile:
 	content_str=infile.read()
 
     content_str = content_str.replace('__NAME__',args.name)	
