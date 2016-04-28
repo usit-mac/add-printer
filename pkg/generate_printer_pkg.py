@@ -26,8 +26,13 @@ if __name__ == '__main__':
         shutil.copy(args.ppd,args.output_directory)
 	
     with open('Makefile-template', 'r') as infile:
-	 with open(os.path.join(args.output_directory,'Makefile'), 'w') as ofile:
-	     ofile.write(infile.read().replace('__PPDFILE__', args.ppd))
+	content_str=infile.read()
+	
+    content_str = content_str.replace('__PPDFILE__',args.ppd)
+    content_str = content_str.replace('__ADDPRINTER__',args.name)
+
+    with open(os.path.join(args.output_directory,'Makefile'), 'w') as ofile:
+	 ofile.write(content_str)
 
     with open('postinstall-template', 'r') as infile:
 	content_str=infile.read()
@@ -40,6 +45,9 @@ if __name__ == '__main__':
         ofile.write(content_str)
 
     subprocess.check_call([_MAKE, "pkg", "-C", args.output_directory])
+
     os.remove(os.path.join(args.output_directory,'Makefile'))
     os.remove(os.path.join(args.output_directory,'postinstall'))
-    os.remove(os.path.join(args.output_directory,args.ppd))
+
+    if not os.path.join('.',args.ppd) == os.path.join(args.output_directory, args.ppd):
+        os.remove(os.path.join(args.output_directory,args.ppd))
