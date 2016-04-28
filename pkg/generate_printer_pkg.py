@@ -4,6 +4,7 @@ import argparse
 import os
 from os.path import join
 import shutil
+import subprocess
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -33,3 +34,14 @@ if __name__ == '__main__':
 
     with open(os.path.join(args.output_directory,'postinstall'), 'w') as ofile:
         ofile.write(content_str)
+
+    _MAKE = '/usr/bin/make'
+    subprocess.check_call([_MAKE, "pkg", "-C", args.output_directory])
+
+    THEPATH = args.output_directory
+    FILE1 = 'Makefile'
+    FILE2 = 'postinstall'
+    FILE3 = args.ppd
+    os.remove(THEPATH+'/'+FILE1)
+    os.remove(THEPATH+'/'+FILE2)
+    os.remove(THEPATH+'/'+FILE3)
