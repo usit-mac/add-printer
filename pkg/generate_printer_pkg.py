@@ -14,24 +14,26 @@ if __name__ == '__main__':
     parser.add_argument('--name', required=True, help="Name of the printer")
     parser.add_argument('--location', default="No specific loacation",)
     parser.add_argument('--ppd', required=True,help="PPD file") 
+    parser.add_argument('--protocol', type=str, default='smb')
+    parser.add_argument('--server', type=str, default='pushprint.uio.no')
     parser.add_argument('--output-directory', required=True,help="Path to PPD file") 
 
     args = parser.parse_args()
 
     name = args.name.replace(' ', '_').lower()
+    ppd = op.basename(args.ppd)
 
     if not os.path.exists(args.output_directory):
         os.makedirs(args.output_directory)
 
     # If in same directory, don't copy
-    if not args.ppd in os.listdir(args.output_directory):
+    if not ppd in os.listdir(args.output_directory):
         shutil.copy(args.ppd, args.output_directory)
 
     with open('Makefile-template', 'r') as infile:
         content_str = infile.read()
 
-    content_str = content_str.replace('__PPDFILE__',
-            op.basename(args.ppd).replace(' ', '\ '))
+    content_str = content_str.replace('__PPDFILE__', ppd.replace(' ', '\ '))
     content_str = content_str.replace('__PRINTERNAME__', name)
 
     with open(os.path.join(args.output_directory,'Makefile'), 'w') as ofile:
@@ -42,7 +44,9 @@ if __name__ == '__main__':
 
     content_str = content_str.replace('__NAME__', name)
     content_str = content_str.replace('__LOCATION__', args.location)
-    content_str = content_str.replace('__PPD__', args.ppd)
+    content_str = content_str.replace('__PPD__', ppd)
+    content_str = content_str.replace('__PROTOCOL__', args.protocol)
+    content_str = content_str.replace('__SERVER__', args.server)
 
     with open(os.path.join(args.output_directory,'postinstall'), 'w') as ofile:
         ofile.write(content_str)

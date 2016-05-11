@@ -4,16 +4,13 @@ import subprocess
 import os.path as op
 
 _LPADMIN = '/usr/sbin/lpadmin'
-
-NAME='__NAME__'
-LOCATION='__LOCATION__'
-PPD='__PPD__'
-PPDIR='/Library/Printers/PPDs/Contents/Resources/'
-PPD_FULL=PPDIR + PPD
+_PPDDIR = '/Library/Printers/PPDs/Contents/Resources/'
 
 if __name__ == '__main__':
+    name = '__NAME__'
+    location = '__LOCATION__'
+    ppd = op.join(_PPDDIR, '__PPD__')
+    url = "__PROTOCOL__://__SERVER__/" + name
 
-    base_url = "smb://pushprint.uio.no/"
-    url = base_url + NAME
-
-    subprocess.check_call([_LPADMIN, "-p", NAME, "-L", LOCATION, "-v", url, "-P", PPD_FULL])
+    subprocess.check_call([_LPADMIN, "-p", name, "-L", location, "-E", "-v", url,
+        "-P", ppd])
