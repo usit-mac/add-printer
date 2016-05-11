@@ -12,6 +12,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--name', required=True, help="Name of the printer")
+    parser.add_argument('--displayname', type=str)
     parser.add_argument('--location', default="No specific loacation",)
     parser.add_argument('--ppd', required=True,help="PPD file") 
     parser.add_argument('--protocol', type=str, default='smb')
@@ -47,6 +48,9 @@ if __name__ == '__main__':
     content_str = content_str.replace('__PPD__', ppd)
     content_str = content_str.replace('__PROTOCOL__', args.protocol)
     content_str = content_str.replace('__SERVER__', args.server)
+
+    if args.displayname:
+        content_str = content_str.replace('__INFO__', args.displayname)
 
     with open(os.path.join(args.output_directory,'postinstall'), 'w') as ofile:
         ofile.write(content_str)

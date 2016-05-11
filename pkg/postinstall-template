@@ -8,9 +8,15 @@ _PPDDIR = '/Library/Printers/PPDs/Contents/Resources/'
 
 if __name__ == '__main__':
     name = '__NAME__'
+    info = '__INFO__'
     location = '__LOCATION__'
     ppd = op.join(_PPDDIR, '__PPD__')
-    url = "__PROTOCOL__://__SERVER__/" + name
+    url = '__PROTOCOL__://__SERVER__/' + '__NAME__'
 
-    subprocess.check_call([_LPADMIN, "-p", name, "-L", location, "-E", "-v", url,
-        "-P", ppd])
+    command = [_LPADMIN, "-p", name, "-L", location, "-E", "-v", url, "-P", ppd]
+
+    if not len(info) == 0:
+        command.append('-D')
+        command.append(info)
+
+    subprocess.check_call(command)
