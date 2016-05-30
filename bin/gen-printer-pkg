@@ -6,6 +6,8 @@ import os.path as op
 import shutil
 import subprocess
 
+from pkg_resources import resource_stream
+
 _MAKE = '/usr/bin/make'
 
 if __name__ == '__main__':
@@ -31,7 +33,7 @@ if __name__ == '__main__':
     if not ppd in os.listdir(args.output_directory):
         shutil.copy(args.ppd, args.output_directory)
 
-    with open('Makefile-template', 'r') as infile:
+    with resource_stream('printerpkg.resources', 'Makefile-template') as infile:
         content_str = infile.read()
 
     content_str = content_str.replace('__PPDFILE__', ppd.replace(' ', '\ '))
@@ -40,7 +42,7 @@ if __name__ == '__main__':
     with open(os.path.join(args.output_directory,'Makefile'), 'w') as ofile:
         ofile.write(content_str)
 
-    with open('postinstall-template', 'r') as infile:
+    with resource_stream('printerpkg.resources', 'postinstall-template') as infile:
         content_str = infile.read()
 
     content_str = content_str.replace('__NAME__', name)
