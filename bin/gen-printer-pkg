@@ -32,6 +32,9 @@ if __name__ == '__main__':
     # If in same directory, don't copy
     if not ppd in os.listdir(args.output_directory):
         shutil.copy(args.ppd, args.output_directory)
+        remove_ppd = True
+    else:
+        remove_ppd = False
 
     with resource_stream('printerpkg.resources', 'Makefile-template') as infile:
         content_str = infile.read()
@@ -66,3 +69,6 @@ if __name__ == '__main__':
 
     os.remove(op.join(args.output_directory,'Makefile'))
     os.remove(op.join(args.output_directory,'postinstall'))
+
+    if remove_ppd:
+        os.remove(op.join(args.output_directory, ppd))
