@@ -53,6 +53,8 @@ if __name__ == '__main__':
 
     if args.displayname:
         content_str = content_str.replace('__INFO__', args.displayname)
+    else:
+        content_str = content_str.replace('__INFO__', args.name)
 
     with open(os.path.join(args.output_directory,'postinstall'), 'w') as ofile:
         ofile.write(content_str)
