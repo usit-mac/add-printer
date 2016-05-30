@@ -13,13 +13,13 @@ _MAKE = '/usr/bin/make'
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--name', required=True, help="Name of the printer")
+    parser.add_argument('-n', '--name', required=True, help="Name of the printer")
     parser.add_argument('--displayname', type=str)
-    parser.add_argument('--location', default="No specific loacation",)
+    parser.add_argument('-l', '--location', default="No specific loacation",)
     parser.add_argument('--ppd', required=True,help="PPD file") 
     parser.add_argument('--protocol', type=str, default='smb')
-    parser.add_argument('--server', type=str, default='pushprint.uio.no')
-    parser.add_argument('--output-directory', required=True,help="Path to PPD file") 
+    parser.add_argument('-s', '--server', type=str, default='pushprint.uio.no')
+    parser.add_argument('-o', '--output-directory', default='./', help="Path to PPD file")
 
     args = parser.parse_args()
 
