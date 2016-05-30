@@ -11,9 +11,9 @@ author_email='b.e.brakken@usit.uio.no'
 
 packages=['printerpkg', 'printerpkg.resources']
 install_requires=[]
-package_data={'': ['Makefile-template', 'postinstall-template']}
 
 scripts=['bin/gen-printer-pkg']
+package_data = {'': ['Makefile-template', 'postinstall-template']}
 
 setup(name=name,
       version=version,
