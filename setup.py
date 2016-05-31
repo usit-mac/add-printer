@@ -13,7 +13,6 @@ packages=['printerpkg', 'printerpkg.resources']
 install_requires=[]
 
 scripts=['bin/gen-printer-pkg']
-package_data = {'': ['Makefile-template', 'postinstall-template']}
 
 setup(name=name,
       version=version,
@@ -22,5 +21,5 @@ setup(name=name,
       author_email=author_email,
       packages=packages,
       install_requires=install_requires,
-      scripts=scripts,
-      package_data=package_data)
+      include_package_data=True,
+      scripts=scripts)

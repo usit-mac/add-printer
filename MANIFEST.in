@@ -1,2 +1,1 @@
-include printerpkg/resources/Makefile-template
-include printerpkg/resources/postinstall-template
+recursive-include printerpkg/resources *
